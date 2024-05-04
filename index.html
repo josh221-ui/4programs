@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Approval Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom right, #2196F3, #0D47A1);
+        color: #FFFFFF;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        border-radius: 5px;
+        background: linear-gradient(to bottom right, #64B5F6, #1565C0);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .form-group input, .form-group textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #FFFFFF;
+    }
+    .form-group textarea {
+        height: 100px;
+    }
+    .btn {
+        background-color: #1565C0;
+        color: #FFFFFF;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .logo {
+        max-width: 100px;
+        margin-bottom: 20px;
+    }
+    .signing-box {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 20px;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    .congratulations-text {
+        font-style: italic;
+        margin-bottom: 20px;
+    }
+    .copyright-text {
+        text-align: center;
+        font-size: 12px;
+        color: #FFFFFF;
+        margin-top: 50px;
+    }
+    #signatureCanvas {
+        width: 300px;
+        height: 150px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <img src="logo.png" alt="Company Logo" class="logo">
+    <h2>Approval of Partnership and Membership Form</h2>
+    <form id="approvalForm">
+        <div class="form-group">
+            <label for="name">Name of Applicant/Organization:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+            <label for="partnershipType">Type of Partnership:</label>
+            <input type="text" id="partnershipType" name="partnershipType" required>
+        </div>
+        <div class="form-group">
+            <label for="duration">Duration of Partnership:</label>
+            <input type="text" id="duration" name="duration" placeholder="Start Date - End Date">
+        </div>
+        <div class="form-group">
+            <label for="signature">Signature:</label>
+            <div class="signing-box" id="signatureBox">
+                <canvas id="signatureCanvas" width="300" height="150"></canvas>
+                <button type="button" id="clearSignatureBtn">Clear Signature</button>
+            </div>
+        </div>
+        <div class="congratulations-text">
+            Congratulations! You are now considered as a partner and member of 4programs.net. We hope you do your best as we grow together.
+        </div>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+    <div class="copyright-text">
+        &copy; 4programs.net
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+<script>
+    // Initialize Signature Pad
+    const canvas = document.getElementById('signatureCanvas');
+    const signaturePad = new SignaturePad(canvas);
+
+    // Handle Clear Signature button click
+    document.getElementById('clearSignatureBtn').addEventListener('click', function() {
+        signaturePad.clear();
+    });
+
+    document.getElementById('approvalForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Get the signature data as a base64-encoded PNG image
+        const signatureData = signaturePad.toDataURL();
+        // You can send this signature data to your server or process it as needed
+        alert('Form submitted successfully!');
+        // Optionally, you can reset the form after submission
+        this.reset();
+        signaturePad.clear(); // Clear the signature after submission
+    });
+</script>
+</body>
+</html>
